@@ -56,6 +56,7 @@ int		set_table(t_phil *phil, t_table *tab)
 		pthread_mutex_init(&tab->forks[i], NULL);
 		i++;
 	}
+	pthread_mutex_init(&tab->writing, NULL);
 	return (0);
 }
 

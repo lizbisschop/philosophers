@@ -25,6 +25,7 @@ int        		print_stuff(t_philosopher *phil, char *write)
 	if (ret_time == -1)
 		return (-1);
 	pthread_mutex_lock(&phil->tab->writing);
+	// printf("waiting or nott??\n");
 	printf("%lli %i %s\n", ret_time - phil->tab->start_time, phil->nbr, write);
 	pthread_mutex_unlock(&phil->tab->writing);
 	return (0);
