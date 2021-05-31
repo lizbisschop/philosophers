@@ -22,6 +22,7 @@ void	info_philo(t_philosopher *phil, t_table *tab, char **argv, int nb, int argc
 		phil->hold_r = phil->nbr;
 	else
 		phil->hold_r = phil->nbr - 1;
+	printf("hold_r = %d | hold_l = %d\n", phil->hold_r, phil->hold_l);
 	phil->tab = tab;
 }
 
@@ -77,6 +78,5 @@ int     main(int argc, char **argv)
 	set_philos(&phil, &tab, argv, argc);
 	if (threading(&phil, &tab) == -1)
 		return (-1);
-	
 	(void)argc;
 }
