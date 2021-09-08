@@ -1,4 +1,4 @@
-#include "philo_one.h"
+#include "philo.h"
 
 long long int	get_time(t_table *tab)
 {

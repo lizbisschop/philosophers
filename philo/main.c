@@ -1,14 +1,24 @@
-#include "philo_one.h"
+#include "philo.h"
 
 
 //add pthread to the compile argument
 
+int		print_return(const char *str)
+{
+	printf("%s", str);
+	return (0);
+}
+
 void	info_philo(t_philosopher *phil, t_table *tab, char **argv, int nb, int argc)
 {
 	phil->nbr = nb;
+	phil->total_nbr = ft_atoi(argv[1]);
 	phil->time_die = ft_atoi(argv[2]);
 	phil->time_eat = ft_atoi(argv[3]);
 	phil->time_sleep = ft_atoi(argv[4]);
+	phil->dead_philosopher = 0;
+	phil->last_time_eaten = tab->start_time;
+	// printf("what is in nbr = %d argv1 = %s\n", phil->nbr, argv[1]);
 	if (argc == 6)
 	{
 		phil->times_to_eat = ft_atoi(argv[5]);
@@ -19,10 +29,10 @@ void	info_philo(t_philosopher *phil, t_table *tab, char **argv, int nb, int argc
 	phil->hold_l = phil->nbr;
 	phil->dead = 0;
 	if (phil->nbr == 1)
-		phil->hold_r = phil->nbr;
+		phil->hold_r = phil->nbr + 1;
 	else
 		phil->hold_r = phil->nbr - 1;
-	printf("hold_r = %d | hold_l = %d\n", phil->hold_r, phil->hold_l);
+	// printf("hold_r = %d | hold_l = %d\n", phil->hold_r, phil->hold_l);
 	phil->tab = tab;
 }
 
@@ -69,14 +79,17 @@ int     main(int argc, char **argv)
 	struct timeval time;
 	gettimeofday(&time, NULL);
 	tab.start_time = time.tv_sec * 1000 + time.tv_usec / 1000;
-	if (argc == 1)
-		return (0);
 	if (argc <= 1 && argc <= 3)
-		return (-1);
-	phil.nb_philos = ft_atoi(argv[1]);	
-	set_table(&phil, &tab);
+		return (print_return("Not enough arguments\n"));
+	if (ft_strncmp(argv[1], "1") && ft_strlen(argv[1]) == 1)
+		return (print_return("Not enough philosophers\n"));
+	phil.philo_dead = 0;
+	phil.nb_philos = ft_atoi(argv[1]);
+	if (set_table(&phil, &tab))
+		return (print_return("Something wrong...\n"));
 	set_philos(&phil, &tab, argv, argc);
 	if (threading(&phil, &tab) == -1)
 		return (-1);
-	(void)argc;
+	// (void)argc;
+	return (0);
 }
