@@ -40,6 +40,13 @@ void    *eat_sleep_think(void *p)
 		eat(phil);
 		if (phil->dead_philosopher == 1 || (phil->arg_5 == 1 && phil->times_eaten == phil->times_to_eat))
 		{
+			// if (phil->times_eaten == phil->times_to_eat)
+			// 	printf("EAT LIMIT HAS BEEN MADE! %d %d \n", phil->times_eaten, phil->times_to_eat);
+			// else
+			// {
+			// 		printf("WHY YOU DEAD???\n");
+			// }
+			
 			break ;
 		}
 		print_stuff(phil, "is sleeping");

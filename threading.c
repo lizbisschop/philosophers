@@ -49,6 +49,12 @@ int    threading(t_philos *philos, t_table *tab)
 		return (-1);
 	if (join_threads(philos, tab) == -1)
 		return (-1);
+	// if (philos->p[0].times_eaten == philos->p[0].times_to_eat)
+	// 	printf("EAT LIMIT HAS BEEN MADE SCOND CHECKIE!!! %d %d \n", philos->p[0].times_eaten, philos->p[0].times_to_eat);
+	// else
+	// {
+	// 	printf("WHY YOU DEAD MOTHA FOCKAA??  %d %d \n", philos->p[0].times_eaten, philos->p[0].times_to_eat);
+	// }
 	if (destroy_mutexes(tab, philos->nb_philos) == -1)
 		return (-1);
 	return (0);

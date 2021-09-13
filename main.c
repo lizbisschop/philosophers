@@ -19,6 +19,7 @@ int     init_philo(t_philosopher *p, t_table *tab, int nb, char **argv, int argc
     if (argc == 6)
 	{
 		p->times_to_eat = ft_atoi(argv[5]);
+        printf("TIMES TO EAT = %d\n", p->times_to_eat);
 		p->arg_5 = 1;
 	}
     else

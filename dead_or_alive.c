@@ -29,15 +29,21 @@ void		*check_dead_or_alive(void *philosophers)
 		i = 0;
 		while (i < philos->p[0].total_nbr)
 		{
+			if (philos->p[i].times_eaten == philos->p[i].times_to_eat)
+				break ;
 			// printf("PHILO_NUMBER = %d\n", philos->p[i].nbr);
 			if (dying(philos, i))
 				break ;
 			i++;
 		}
+		if (philos->p[i].times_eaten == philos->p[i].times_to_eat)
+			break ;
 		if (philos->p[i].dead_philosopher == 1)
 			break ;
 	}
 	i = 0;
+	if (philos->p[i].times_eaten == philos->p[i].times_to_eat)
+		return (0);
 	while (i < philos->p[0].total_nbr)
 	{
 		philos->p[i].dead_philosopher = philos->philo_dead;
