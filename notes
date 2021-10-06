@@ -1,3 +1,7 @@
 
 first                           second                 third                      fourth                     fifth
 number_of_philosophers          time_to_die            time_to_eat                time_to_sleep              [number_of_times_each_philosopher_mst_eat]
+
+
+[]Check if there is a mutex per fork and that its used to check the fork value and/ or change it.
+[]Check for leaks
