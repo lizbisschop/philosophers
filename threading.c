@@ -1,8 +1,8 @@
 #include "philo.h"
 
-int     join_threads(t_philos *philos, t_table *tab)
+int	join_threads(t_philos *philos, t_table *tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < philos->nb_philos)
@@ -22,21 +22,22 @@ int     join_threads(t_philos *philos, t_table *tab)
 	return (0);
 }
 
-int    destroy_mutexes(t_table *tab, int nbr)
+int	destroy_mutexes(t_table *tab, int nbr, t_philos *philos)
 {
-	int i;
-	int ret;
+	int	i;
+	int	ret;
 
 	i = 0;
 	while (i < nbr)
 	{
+		if (tab->locked_fork[i] == 1)
+			pthread_mutex_unlock(&tab->forks[i]);
 		ret = pthread_mutex_destroy(&tab->forks[i]);
 		if (ret != 0)
-			printf("HELLLO will you be here??\n");
-		// {
-		// 	printf("%d destroy mutex failed %s\n", ret, strerror(ret));
-		// 	return (-1);
-		// }
+		{
+			printf("%d destroy mutex failed %s\n", ret, strerror(ret));
+			return (-1);
+		}
 		i++;
 	}
 	if (pthread_mutex_destroy(&tab->writing) != 0)
@@ -49,21 +50,18 @@ int    destroy_mutexes(t_table *tab, int nbr)
 
 void	*print_time(void *philos)
 {
-	t_philos *phils = philos;
-	int i = 0;
-	long long int time;
+	t_philos	 	*phils;
+	int				i;
+	long long int	time;
 
 	time = get_time(NULL);
-
+	i = 0;
+	phils = philos;
 	while (1)
 	{
-	// printf("I am here as you are here\n");
 		usleep(300000);
 		while (i < phils->nb_philos)
-		{
-			// printf("time = %lld philo = %d\n", time - phils->start_time, phils->p[i].nbr);
 			i++;
-		}
 		i = 0;
 		if (phils->philo_dead == 1)
 			break ;
@@ -114,7 +112,7 @@ int    threading(t_philos *philos, t_table *tab)
 	// {
 	// 	printf("WHY YOU DEAD MOTHA FOCKAA??  %d %d \n", philos->p[0].times_eaten, philos->p[0].times_to_eat);
 	// }
-	if (destroy_mutexes(tab, philos->nb_philos) == -1)
+	if (destroy_mutexes(tab, philos->nb_philos, philos) == -1)
 	{
 		philos->function_fail = 1;
 		return (-1);

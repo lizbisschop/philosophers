@@ -19,7 +19,6 @@ int	init_philo(t_philosopher *p, t_table *tab, int nb, char **argv, int argc)
 	if (argc == 6)
 	{
 		p->times_to_eat = ft_atoi(argv[5]);
-		// printf("TIMES TO EAT = %d\n", p->times_to_eat);
 		p->arg_5 = 1;
 	}
 	else
@@ -41,7 +40,7 @@ int	set_philos(t_philos *philos, t_table *tab, char **argv, int argc)
 
 	i = 1;
 	philos->p = (t_philosopher *)malloc(sizeof(t_philosopher)
-		* philos->nb_philos + 1);
+			* philos->nb_philos + 1);
 	if (!philos->p)
 		return (-1);
 	while (i < argc)
@@ -65,9 +64,17 @@ int	set_table(t_philos *philos, t_table *tab)
 
 	i = 0;
 	tab->threads = (pthread_t *)malloc(sizeof(pthread_t) * philos->nb_philos);
-	tab->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philos->nb_philos);
+	tab->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* philos->nb_philos);
 	if (!tab->threads || !tab->forks)
 		return (-1);
+	tab->locked_fork = (int *)malloc(sizeof(int) * philos->nb_philos + 1);
+	while (i < philos->nb_philos)
+	{
+		tab->locked_fork[i] = 0;
+		i++;
+	}
+	i = 0;
 	while (i < philos->nb_philos)
 	{
 		if (pthread_mutex_init(&tab->forks[i], NULL) != 0)
@@ -77,7 +84,6 @@ int	set_table(t_philos *philos, t_table *tab)
 		}
 		i++;
 	}
-	// philos->start_time = tab->start_time;
 	if (pthread_mutex_init(&tab->writing, NULL) != 0)
 	{
 		philos->function_fail = 1;
