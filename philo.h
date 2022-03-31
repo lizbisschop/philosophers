@@ -17,7 +17,7 @@
 typedef struct	s_table {
 	pthread_mutex_t *forks;
 	int		*locked_fork;
-	long long int	start_time;
+	long	start_time;
 	pthread_t 		*threads;
 	pthread_mutex_t writing;
 
@@ -33,7 +33,7 @@ typedef struct	s_philosopher {
 	int time_die;
 	int time_eat;
 	int	time_sleep;
-	long long int last_time_eaten;
+	long	last_time_eaten;
 	int hold_r;
 	int hold_l;
 	int times_to_eat;
@@ -46,7 +46,7 @@ typedef struct	s_philos {
 	int nb_philos;
 	int philo_dead;
 	pthread_t	dead_or_alive;
-	long long int start_time;
+	long start_time;
 	t_philosopher	*p;
 	int	function_fail;
 }				t_philos;
@@ -61,7 +61,7 @@ int     	    threading(t_philos *phil, t_table *tab);
 void    		*eat_sleep_think(void *p);
 void			print_stuff(t_philosopher *phil, char *write);
 void			*check_dead_or_alive(void *philosophers);
-long long int	get_time(t_table *tab);
+long	get_time(t_table *tab);
 void    	better_sleep(int ms);
 
 #endif

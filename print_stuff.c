@@ -1,6 +1,6 @@
 #include "philo.h"
 
-long long int	get_time(t_table *tab)
+long	get_time(t_table *tab)
 {
 	struct timeval	time;
 	int				ret;
@@ -16,7 +16,7 @@ long long int	get_time(t_table *tab)
 
 void	print_stuff(t_philosopher *phil, char *write)
 {
-	long long int	ret_time;
+	long	ret_time;
 
 	ret_time = get_time(phil->tab);
 	if (ret_time == -1)
@@ -29,7 +29,7 @@ void	print_stuff(t_philosopher *phil, char *write)
 		phil->function_fail = 1;
 		return ;
 	}
-	printf("%lli %i %s", ret_time - phil->tab->start_time, phil->nbr, write);
+	printf("%li %i %s", ret_time - phil->tab->start_time, phil->nbr, write);
 	if (ft_strncmp(write, "is eating") && ft_strlen(write) == 9)
 		printf(" [%d]", phil->times_eaten);
 	printf("\n");

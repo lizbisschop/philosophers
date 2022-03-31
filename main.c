@@ -63,9 +63,9 @@ int	set_table(t_philos *philos, t_table *tab)
 	int	i;
 
 	i = 0;
-	tab->threads = (pthread_t *)malloc(sizeof(pthread_t) * philos->nb_philos);
+	tab->threads = (pthread_t *)malloc(sizeof(pthread_t) * philos->nb_philos + 1);
 	tab->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* philos->nb_philos);
+			* philos->nb_philos + 1);
 	if (!tab->threads || !tab->forks)
 		return (-1);
 	tab->locked_fork = (int *)malloc(sizeof(int) * philos->nb_philos + 1);
@@ -104,7 +104,7 @@ int	main(int argc, char **argv)
 		return (print_return("Not the right amount of arguments\n"));
 	if (ft_strncmp(argv[1], "1") && ft_strlen(argv[1]) == 1)
 	{
-		return (printf("%lli 1 Died\n", tab.start_time - get_time(&tab)));
+		return (printf("%li 1 Died\n", tab.start_time - get_time(&tab)));
 	}
 	set_struct(&philos, argv);
 	if (set_table(&philos, &tab) || philos.nb_philos == 0)
@@ -113,10 +113,12 @@ int	main(int argc, char **argv)
 			return (print_return("function failed\n"));
 		return (print_return("Someting wrong...\n"));
 	}
-	if (set_philos(&philos, &tab, argv, argc) || philos.p->time_die == 0
-		|| philos.p->time_eat == 0 || philos.p->time_sleep == 0
-		|| philos.p->time_sleep == 0)
-		return (print_return("Something went wrong...\n"));
+	set_philos(&philos, &tab, argv, argc);
+	if (philos.p->time_die == 0	|| philos.p->time_eat == 0
+		|| philos.p->time_sleep == 0 || (philos.p->times_to_eat == 0 && philos.p->arg_5 == 1))
+		{	
+			return (print_return("Invalid input...\n"));
+		}
 	if (threading(&philos, &tab) == -1)
 	{
 		if (philos.function_fail == 1)

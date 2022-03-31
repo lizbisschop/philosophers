@@ -1,9 +1,10 @@
 
 first                           second                 third                      fourth                     fifth
-number_of_philosophers          time_to_die            time_to_eat                time_to_sleep              [number_of_times_each_philosopher_mst_eat]
+number_of_philosophers          time_to_die            time_to_eat                time_to_sleep              [number_of_times_each_philosopher_must_eat]
 
 
 []Check if there is a mutex per fork and that its used to check the fork value and/ or change it.
 []Check for leaks
 [] Make sure a fork is not locked before destroying a mutex
 [] Why does a philosopher die when you give 4 310 200 100
+[] What if you give 0 as times_to_eat

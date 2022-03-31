@@ -91,7 +91,7 @@ unsigned long int	get_time_now(void)
 
 void    better_sleep(int total_ms)
 {
-	long long int begin = get_time_now();
+	long begin = get_time_now();
 		// printf(" %lu I am here\n", total_ms);
     // total_ms *= 100;
 		// printf(" %lu I am here\n", total_ms);

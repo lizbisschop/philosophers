@@ -2,7 +2,7 @@
 
 int	dying(t_philos *philos, int i)
 {
-	long long int	now;
+	long	now;
 
 	now = get_time(philos->p[i].tab);
 	if (now - philos->p[i].last_time_eaten > philos->p[i].time_die
@@ -10,7 +10,7 @@ int	dying(t_philos *philos, int i)
 	{
 		philos->philo_dead = 1;
 		philos->p[i].dead_philosopher = 1;
-		printf("Now - last time eaten %lld philo %d time to die = %d\n", now - philos->p[i].last_time_eaten, philos->p[i].nbr, philos->p[i].time_die);
+		printf("Now - last time eaten %li philo %d time to die = %d\n", now - philos->p[i].last_time_eaten, philos->p[i].nbr, philos->p[i].time_die);
 		print_stuff(&philos->p[i], "died");
 		return (1);
 	}

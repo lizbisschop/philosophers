@@ -52,7 +52,7 @@ void	*print_time(void *philos)
 {
 	t_philos	 	*phils;
 	int				i;
-	long long int	time;
+	long	time;
 
 	time = get_time(NULL);
 	i = 0;
